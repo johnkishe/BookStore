@@ -15,7 +15,14 @@ namespace BookStore.Infrastructure
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(configuration.GetConnectionString("BookStore")));
             services.AddScoped<IAppDbContext>(sp => sp.GetRequiredService<AppDbContext>());
-           
+
+            services.AddHttpClient<IOpenLibraryService, OpenLibraryService>(client =>
+            {
+                client.BaseAddress = new Uri("https://openlibrary.org/");
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("BookStoreAssessment/1.0");
+                client.Timeout = TimeSpan.FromSeconds(10);
+            });
+
             return services;
         }
     }

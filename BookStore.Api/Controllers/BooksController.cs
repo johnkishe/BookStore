@@ -1,6 +1,7 @@
 ﻿using BookStore.Application.Features.Books;
 using BookStore.Application.Features.Books.Commands;
 using BookStore.Application.Features.Books.Querys;
+using BookStore.Domain.Enum;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,19 @@ namespace BookStore.Api.Controllers
     [Route("api/books")]
     public class BooksController(IMediator mediator) : ControllerBase
     {
+        [HttpGet]
+        public async Task<ActionResult<PagedResult<BookResponse>>> GetBooks(
+        GenreEnum? genre,
+        int page = 1,
+        int pageSize = 10,
+        string? sortBy = null,
+        string? sortOrder = null)
+        {
+            // Determine if the sort order is descending based on the provided sortOrder parameter
+            var descending = sortOrder == "desc";
+            return await mediator.Send(new GetBooksQuery(genre, page, pageSize, sortBy, descending));
+        }
+
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<BookResponse>> GetById(Guid id, CancellationToken ct) =>
             Ok(await mediator.Send(new GetBookByIdQuery(id), ct));
