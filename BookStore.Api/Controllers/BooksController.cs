@@ -23,6 +23,11 @@ namespace BookStore.Api.Controllers
             var descending = sortOrder == "desc";
             return await mediator.Send(new GetBooksQuery(genre, page, pageSize, sortBy, descending));
         }
+        
+        [HttpGet("genres")]
+        public async Task<ActionResult<List<GenreCount>>> GetGenreCounts() =>
+        await mediator.Send(new GetGenreCountsQuery());
+
 
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<BookResponse>> GetById(Guid id, CancellationToken ct) =>

@@ -1,0 +1,9 @@
+@layer theme, base, primeng, components, utilities;
+
+@import "tailwindcss";
+@import "tailwindcss-primeui";
+@import "primeicons/primeicons.css";
+
+body {
+  @apply bg-surface-50 text-surface-800 antialiased;
+}

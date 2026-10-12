@@ -1,4 +1,5 @@
-﻿using BookStore.Application.Interfaces;
+﻿using BookStore.Application.Features.Books.Querys;
+using BookStore.Application.Interfaces;
 using BookStore.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,5 +27,10 @@ namespace BookStore.Infrastructure
             // SQLite can't sort decimals, so store the price as a REAL.
             book.Property(b => b.Price).HasConversion<double>();
         }
+
+        public Task<List<GenreCount>> GetGenreCountsAsync(CancellationToken cancellationToken) =>
+        Database.SqlQueryRaw<GenreCount>(
+             "SELECT Genre, COUNT(*) AS Count FROM Books GROUP BY Genre ORDER BY Genre")
+         .ToListAsync(cancellationToken);
     }
 }
