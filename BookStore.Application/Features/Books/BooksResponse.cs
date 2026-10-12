@@ -1,4 +1,5 @@
 ﻿using BookStore.Domain.Entity;
+using BookStore.Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +15,7 @@ namespace BookStore.Application.Features.Books
     string? CoverUrl,
     string OpenLibraryKey,
     string? Description,
-    Genre Genre,
+    GenreEnum Genre,
     decimal Price,
     int Stock)
     {
@@ -22,4 +23,6 @@ namespace BookStore.Application.Features.Books
             book.Id, book.Title, book.Author, book.ISBN, book.PublishedYear, book.CoverUrl,
             book.OpenLibraryKey, book.Description, book.Genre, book.Price, book.Stock);
     }
+
+    public record PagedResult<T>(List<T> Items, int Page, int PageSize, int TotalCount);
 }
