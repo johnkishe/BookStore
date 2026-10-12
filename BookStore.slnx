@@ -3,4 +3,5 @@
   <Project Path="BookStore.Application/BookStore.Application.csproj" />
   <Project Path="BookStore.Domain/BookStore.Domain.csproj" />
   <Project Path="BookStore.Infrastructure/BookStore.Infrastructure.csproj" />
+  <Project Path="BookStore.Test/BookStore.Test.csproj" Id="67e6ccc2-89a3-4a9c-991c-f26d47c8054f" />
 </Solution>
